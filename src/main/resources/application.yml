@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    name: assai
+    url: jdbc:postgresql://localhost:5432/assai
+    username: assai
+    password: assai
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      javax.persistence.query.timeout: 60000
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        temp.use_jdbc_metadata_defaults: false
+    show-sql: true
