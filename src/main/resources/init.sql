@@ -1,8 +1,11 @@
 CREATE USER assai WITH PASSWORD 'assai' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+ALTER DEFAULT PRIVILEGES FOR USER assai IN SCHEMA public GRANT SELECT, INSERT, DELETE, UPDATE ON TABLES TO assai;
+ALTER DEFAULT PRIVILEGES FOR USER assai IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO assai;
+ALTER DEFAULT PRIVILEGES FOR USER assai IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO assai;
 
 CREATE TABLE store
 (
-    store_id int8 NOT NULL,
+    store_id serial NOT NULL,
     name varchar(100) NOT NULL,
     longitude NUMERIC NOT NULL,
     latitude NUMERIC NOT NULL,
@@ -15,7 +18,7 @@ CREATE TABLE store
 
 CREATE TABLE partner
 (
-    partner_id int8 NOT NULL,
+    partner_id serial NOT NULL,
     name varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
     cpf varchar(100) NOT NULL,
@@ -26,7 +29,7 @@ CREATE TABLE partner
 
 CREATE TABLE product_type
 (
-    product_type_id int8 NOT NULL,
+    product_type_id serial NOT NULL,
     name varchar(100) NOT NULL,
     price NUMERIC(8,2) NOT NULL,
     prepare_time NUMERIC NOT NULL,
@@ -36,7 +39,7 @@ CREATE TABLE product_type
 );
 
 CREATE TABLE product (
-    product_id int8 NOT NULL,
+    product_id serial NOT NULL,
     name varchar(100) NOT NULL,
     product_type_id int8 NOT NULL,
     start_date TIMESTAMP NOT NULL,
@@ -45,7 +48,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE client (
-    client_id int8 NOT NULL,
+    client_id serial NOT NULL,
     name varchar(100) NOT NULL,
     cpf varchar(100) NOT NULL,
     telephone varchar(100) NOT NULL,
@@ -55,7 +58,7 @@ CREATE TABLE client (
 );
 
 CREATE TABLE "order" (
-    order_id int8 NOT NULL,
+    order_id serial NOT NULL,
     client_id int8 NOT NULL,
     product_id int8 NOT NULL,
     store_id int8 NOT NULL,

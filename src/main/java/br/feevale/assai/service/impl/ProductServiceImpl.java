@@ -3,6 +3,8 @@ package br.feevale.assai.service.impl;
 import br.feevale.assai.domain.Product;
 import br.feevale.assai.domain.ProductType;
 import br.feevale.assai.dto.product.CreateProductDto;
+import br.feevale.assai.view.product.ProductClientPanelView;
+import br.feevale.assai.view.product.ProductStorePanelView;
 import br.feevale.assai.exception.ProductTypeNotFoundException;
 import br.feevale.assai.repository.ProductRepository;
 import br.feevale.assai.service.ProductService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -43,6 +46,21 @@ public class ProductServiceImpl implements ProductService {
 		Product persistedProduct = productRepository.save(product);
 
 		return persistedProduct.getProductId();
+	}
+
+	@Override
+	public void deleteProduct(Long productId) {
+		productRepository.deleteById(productId);
+	}
+
+	@Override
+	public List<ProductStorePanelView> findActiveProductsByStoreForStore(Long storeId) {
+		return productRepository.findActiveProductsByStoreForStore(storeId);
+	}
+
+	@Override
+	public List<ProductClientPanelView> findActiveProductsByStoreForClient(Long storeId) {
+		return productRepository.findActiveProductsByStoreForClient(storeId);
 	}
 
 }
