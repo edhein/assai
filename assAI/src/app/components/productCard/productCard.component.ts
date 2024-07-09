@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Product } from "src/app/interfaces/product.interface";
+import { Component, DestroyRef, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Product, ProductType } from "src/app/models/product.interface";
+import { ProductService } from "src/app/services/product.service";
 
 @Component({
     selector: "app-product-card",
@@ -7,27 +9,68 @@ import { Product } from "src/app/interfaces/product.interface";
     styleUrls: ["./productCard.component.scss"]
 })
 export class ProductCardComponent implements OnInit {
-    constructor() {}
+    constructor(private service: ProductService, private destroyRef: DestroyRef) {}
 
-    @Input({ required: true }) product = <Product>{};
-    @Input({ required: true }) index = 0;
+    @Input() product = <Product>{};
+    @Input() isNewRegister = false;
+    @Input({ required: true }) productTypes: ProductType[] = [];
+    @Input() index = 0;
+    @Output() updateScreen = new EventEmitter();
 
     progress = 0;
+    productTypeSelected: ProductType = <ProductType>{};
+    remainingTime = "";
+
     private intervalId: any;
 
-    ngOnInit() {
+    public ngOnInit() {
         this.calculateProgressBar();
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
     }
 
-    calculateProgressBar() {
+    public addProduct() {
+        if (!this.productTypeSelected.productTypeId) {
+            return;
+        }
+
+        this.service
+            .addProduct(this.productTypeSelected)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.updateScreen.emit();
+            });
+    }
+
+    public cardAction(status: string) {
+        if (this.product.client?.id) {
+            this.service
+                .updateProduct(this.product.orderId, status)
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.updateScreen.emit();
+                });
+        }
+
+        this.service
+            .cancelProduct(this.product.productId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.updateScreen.emit();
+            });
+    }
+
+    private calculateProgressBar() {
+        if (this.isNewRegister) {
+            return;
+        }
+
         const startTime = new Date(this.product.startDate).getTime();
-        const duration = this.product.prepareTime;
+        const duration = this.product.productType.prepareTime;
         const endTime = startTime + duration;
 
         this.intervalId = setInterval(() => {
@@ -39,6 +82,20 @@ export class ProductCardComponent implements OnInit {
                 clearInterval(this.intervalId);
                 this.progress = 100;
             }
+
+            this.updateRemainingTimeString(elapsedTime, duration);
         }, 100);
+    }
+
+    private updateRemainingTimeString(elapsedTime: number, duration: number) {
+        const remainingTime = duration - elapsedTime;
+        const minutes = Math.floor(remainingTime / 60000);
+        const seconds = ((remainingTime % 60000) / 1000).toFixed(0);
+
+        this.remainingTime = `${minutes}:${seconds}`;
+
+        if (this.progress === 100) {
+            this.remainingTime = "Pronto!";
+        }
     }
 }

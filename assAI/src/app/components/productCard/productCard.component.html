@@ -1,26 +1,44 @@
 <div class="organizer">
-    <div class="card_container">
+    <div *ngIf="!isNewRegister" class="card_container">
         <h1 class="product_name">{{ "Espeto " + (index + 1) }}</h1>
 
         <div class="card_body">
             <div class="card_infos">
-                <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-                <h2>{{ product.productName }}</h2>
+                <div class="progress-bar-container">
+                    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                    <span class="remaining-time">{{ remainingTime }}</span>
+                </div>
+                <h2>{{ product.productType.name }}</h2>
+                <h2>{{ product.client?.id ? "Reservado" : "" }}</h2>
             </div>
 
-            <button mat-raised-button>Cancelar</button>
+            <button (click)="cardAction('CANCELED')" *ngIf="progress !== 100" mat-raised-button>Cancelar</button>
+            <button (click)="cardAction('FINISHED')" *ngIf="progress === 100" mat-raised-button>Entregar</button>
         </div>
     </div>
 
-    <div *ngIf="product.clientId" class="reservation_card">
+    <div *ngIf="isNewRegister" class="card_container">
+        <h1 class="product_name">{{ "Adicionar espeto" }}</h1>
+        <div class="card_body">
+            <mat-form-field>
+                <mat-select [(value)]="productTypeSelected">
+                    <mat-option *ngFor="let type of productTypes" [value]="type">{{ type.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button (click)="addProduct()" mat-raised-button>Adicionar</button>
+        </div>
+    </div>
+
+    <div *ngIf="product.client?.id" class="reservation_card">
         <div>
             <h3>Reservado para:</h3>
-            <h1>{{ product.clientName }}</h1>
+            <h1>{{ product.client?.name }}</h1>
         </div>
 
         <div>
             <h3>Celular:</h3>
-            <h1>51 996713087</h1>
+            <h1>{{ product.client?.telephone }}</h1>
         </div>
     </div>
 </div>
