@@ -17,4 +17,6 @@ public interface ProductClientPanelView {
 
 	String getProductTypeName();
 
+	Long getOrderId();
+
 }

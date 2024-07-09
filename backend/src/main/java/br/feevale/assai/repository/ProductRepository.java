@@ -23,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		"o.client_id AS client_id, " +
 		"c.name AS client_name, " +
 		"c.telephone AS client_telephone, " +
-		"o.status AS order_status " +
+		"o.status AS order_status," +
+		"o.order_id AS order_id " +
 		"FROM product AS p " +
 		"JOIN product_type AS pt ON pt.product_type_id = p.product_type_id " +
 		"LEFT JOIN \"order\" AS o ON o.product_id = p.product_id " +
@@ -38,7 +39,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		"p.start_date AS start_date, " +
 		"pt.prepare_time AS prepare_time, " +
 		"pt.price AS price, " +
-		"pt.name AS product_type_name " +
+		"pt.name AS product_type_name, " +
+		"o.order_id AS order_id " +
 		"FROM product AS p " +
 		"JOIN product_type AS pt ON pt.product_type_id = p.product_type_id " +
 		"LEFT JOIN \"order\" AS o ON o.product_id = p.product_id " +

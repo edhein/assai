@@ -25,4 +25,6 @@ public interface ProductStorePanelView {
 
 	String getOrderStatus();
 
+	Long getOrderId();
+
 }
