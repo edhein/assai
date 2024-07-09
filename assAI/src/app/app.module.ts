@@ -8,6 +8,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { ProductService } from "./services/product.service";
 import { HttpClientModule } from "@angular/common/http";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
     declarations: [AppComponent, ProductCardComponent],
@@ -17,7 +19,9 @@ import { HttpClientModule } from "@angular/common/http";
         BrowserAnimationsModule,
         MatButtonModule,
         MatProgressBarModule,
-        HttpClientModule
+        HttpClientModule,
+        MatFormFieldModule,
+        MatSelectModule
     ],
     providers: [ProductService],
     bootstrap: [AppComponent]

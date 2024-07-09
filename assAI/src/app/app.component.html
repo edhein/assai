@@ -7,6 +7,17 @@
     </div>
 
     <div *ngFor="let product of products; let index = index">
-        <app-product-card [index]="index" [product]="product"></app-product-card>
+        <app-product-card
+            (updateScreen)="listActiveProduts()"
+            [productTypes]="productTypes"
+            [index]="index"
+            [product]="product"
+        ></app-product-card>
     </div>
+
+    <app-product-card
+        (updateScreen)="listActiveProduts()"
+        [productTypes]="productTypes"
+        [isNewRegister]="true"
+    ></app-product-card>
 </div>
