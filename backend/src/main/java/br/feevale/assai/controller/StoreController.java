@@ -3,7 +3,9 @@ package br.feevale.assai.controller;
 import br.feevale.assai.dto.product.CreateProductDto;
 import br.feevale.assai.service.OrderService;
 import br.feevale.assai.service.ProductService;
+import br.feevale.assai.service.ProductTypeService;
 import br.feevale.assai.view.product.ProductStorePanelView;
+import br.feevale.assai.view.product_type.ProductTypeStorePanelView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +32,9 @@ public class StoreController {
 
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private ProductTypeService productTypeService;
 
 	@ResponseStatus(CREATED)
 	@PostMapping("/product")
@@ -61,6 +66,14 @@ public class StoreController {
 		List<ProductStorePanelView> products = productService.findActiveProductsByStoreForStore(storeId);
 
 		return ResponseEntity.ok(products);
+	}
+
+	@ResponseStatus(OK)
+	@GetMapping("product-types/{storeId}")
+	public ResponseEntity<List<ProductTypeStorePanelView>> getProductTypesByStore(@PathVariable("storeId") Long storeId) {
+		List<ProductTypeStorePanelView> productTypes = productTypeService.findProductTypesByStoreForStore(storeId);
+
+		return ResponseEntity.ok(productTypes);
 	}
 
 }
