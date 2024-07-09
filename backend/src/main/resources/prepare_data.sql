@@ -1,0 +1,5 @@
+GRANT ALL PRIVILEGES ON product_type TO assai;
+GRANT ALL PRIVILEGES ON store TO assai;
+GRANT ALL PRIVILEGES ON client TO assai;
+GRANT ALL PRIVILEGES ON order TO assai;
+GRANT ALL PRIVILEGES ON partner TO assai;
