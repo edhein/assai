@@ -21,6 +21,8 @@ public interface ProductStorePanelView {
 
 	String getClientName();
 
+	String getClientTelephone();
+
 	String getOrderStatus();
 
 }

@@ -22,6 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		"pt.name AS product_type_name, " +
 		"o.client_id AS client_id, " +
 		"c.name AS client_name, " +
+		"c.telephone AS client_telephone, " +
 		"o.status AS order_status " +
 		"FROM product AS p " +
 		"JOIN product_type AS pt ON pt.product_type_id = p.product_type_id " +
