@@ -1,0 +1,26 @@
+<div class="organizer">
+    <div class="card_container">
+        <h1 class="product_name">{{ "Espeto " + (index + 1) }}</h1>
+
+        <div class="card_body">
+            <div class="card_infos">
+                <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                <h2>{{ product.productName }}</h2>
+            </div>
+
+            <button mat-raised-button>Cancelar</button>
+        </div>
+    </div>
+
+    <div *ngIf="product.clientId" class="reservation_card">
+        <div>
+            <h3>Reservado para:</h3>
+            <h1>{{ product.clientName }}</h1>
+        </div>
+
+        <div>
+            <h3>Celular:</h3>
+            <h1>51 996713087</h1>
+        </div>
+    </div>
+</div>
