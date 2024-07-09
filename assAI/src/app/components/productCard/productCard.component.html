@@ -12,21 +12,22 @@
                 <h2>{{ product.client?.id ? "Reservado" : "" }}</h2>
             </div>
 
-            <button (click)="cardAction('CANCELED')" *ngIf="progress !== 100" mat-raised-button>Cancelar</button>
-            <button (click)="cardAction('FINISHED')" *ngIf="progress === 100" mat-raised-button>Entregar</button>
+            <button (click)="cardAction('CANCELED')" *ngIf="progress !== 100" mat-flat-button>Cancelar</button>
+            <button (click)="cardAction('FINISHED')" *ngIf="progress === 100" mat-flat-button>Entregar</button>
         </div>
     </div>
 
     <div *ngIf="isNewRegister" class="card_container">
         <h1 class="product_name">{{ "Adicionar espeto" }}</h1>
-        <div class="card_body">
+        <div class="card_body select_field">
             <mat-form-field>
+                <mat-label>Produto</mat-label>
                 <mat-select [(value)]="productTypeSelected">
                     <mat-option *ngFor="let type of productTypes" [value]="type">{{ type.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <button (click)="addProduct()" mat-raised-button>Adicionar</button>
+            <button (click)="addProduct()" mat-flat-button>Adicionar</button>
         </div>
     </div>
 

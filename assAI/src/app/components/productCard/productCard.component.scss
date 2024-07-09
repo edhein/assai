@@ -13,10 +13,12 @@ h1 {
         flex-direction: column;
         justify-content: center;
         width: 65%;
-        height: 130px;
+        height: 160px;
         padding: 20px;
         margin-bottom: 20px;
-        background-color: bisque;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        background-color: rgb(231, 189, 137);
 
         .product_name {
             font-size: 20px;
@@ -27,13 +29,14 @@ h1 {
         .card_body {
             display: flex;
             flex-direction: row;
-            margin-top: -32px;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 32px;
 
             .mat-mdc-progress-bar {
                 --mdc-linear-progress-active-indicator-height: 30px;
                 --mdc-linear-progress-track-height: 30px;
+                --mdc-linear-progress-active-indicator-color: #46944a;
             }
 
             .card_infos {
@@ -56,17 +59,23 @@ h1 {
         }
     }
 
+    .select_field {
+        margin-top: 22px;
+    }
+
     .reservation_card {
         display: flex;
         flex-direction: column;
         width: 30%;
-        height: 170px;
+        height: 200px;
         margin-bottom: 20px;
         margin-left: 10px;
         color: white;
-        background-color: darkslategrey;
+        background-color: rgb(226, 162, 83);
         justify-content: center;
         gap: 20px;
         padding-left: 20px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
     }
 }

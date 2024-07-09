@@ -89,10 +89,22 @@ export class ProductCardComponent implements OnInit {
 
     private updateRemainingTimeString(elapsedTime: number, duration: number) {
         const remainingTime = duration - elapsedTime;
-        const minutes = Math.floor(remainingTime / 60000);
-        const seconds = ((remainingTime % 60000) / 1000).toFixed(0);
+        let timeString = "";
 
-        this.remainingTime = `${minutes}:${seconds}`;
+        const hours = Math.floor(remainingTime / 3600000);
+        if (hours > 0) {
+            timeString += `${hours}h `;
+        }
+
+        const minutes = Math.floor((remainingTime % 3600000) / 60000);
+        if (hours > 0 || minutes > 0) {
+            timeString += `${minutes}m `;
+        }
+
+        const seconds = Math.floor((remainingTime % 60000) / 1000);
+        timeString += `${seconds}s`;
+
+        this.remainingTime = timeString.trim();
 
         if (this.progress === 100) {
             this.remainingTime = "Pronto!";
